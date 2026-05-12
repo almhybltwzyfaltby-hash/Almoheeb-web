@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Medical professional or client profile data",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "firstName": { "type": "string" },
+        "specialty": { "type": "string" },
+        "yearsOfExperience": { "type": "number" },
+        "photoURL": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending_verification", "APPROVED", "REJECTED"] },
+        "blacklisted": { "type": "boolean" },
+        "warning_reason": { "type": "string" },
+        "comments": { "type": "array", "items": { "type": "object" } },
+        "views": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "status"]
+    },
+    "Referral": {
+      "title": "Job/Referral",
+      "description": "Job opportunities or medical facility referrals",
+      "type": "object",
+      "properties": {
+        "establishmentName": { "type": "string" },
+        "specialty": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending_verification", "PUBLISHED", "REJECTED"] },
+        "blacklisted": { "type": "boolean" },
+        "warning_reason": { "type": "string" },
+        "likes": { "type": "number" },
+        "views": { "type": "number" },
+        "jobStatus": { "type": "string", "enum": ["AVAILABLE", "PENDING", "FILLED"] },
+        "savedBy": { "type": "array", "items": { "type": "string" } },
+        "comments": { "type": "array", "items": { "type": "object" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["establishmentName", "status"]
+    },
+    "Payment": {
+      "title": "Commission Payment",
+      "description": "Tracking of commissions and office payments",
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "payerName": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "PAID"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["amount", "status"]
+    },
+    "Application": {
+      "title": "Job Application",
+      "description": "Candidate application for the marketplace",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "specialty": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "APPROVED", "REJECTED"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["firstName", "lastName", "status"]
+    },
+    "ExternalJob": {
+      "title": "External Job",
+      "description": "Jobs imported from external sources",
+      "type": "object",
+      "properties": {
+        "job_id": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["PROTECTED", "PUBLISHED", "REJECTED"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["job_id", "status"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Primary user profile collection"
+    },
+    "referrals/{referralId}": {
+      "schema": "Referral",
+      "description": "Marketplace job and facility listings"
+    },
+    "applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Marketplace candidate listings"
+    },
+    "externalJobs/{jobId}": {
+      "schema": "ExternalJob",
+      "description": "Imported job listings"
+    },
+    "payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Commission and service payment tracking"
+    }
+  }
+}
