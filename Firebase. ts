@@ -1,0 +1,16 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+// إعدادات الربط الخاصة بمكتب المهيب
+const firebaseConfig = {
+  apiKey: "AIzaSy...", 
+  authDomain: "almoheeb-recruitment.firebaseapp.com",
+  projectId: "almoheeb-recruitment",
+  storageBucket: "almoheeb-recruitment.appspot.com",
+  messagingSenderId: "777958521",
+  appId: "1:777958521:web:..."
+};
+
+// تشغيل قاعدة البيانات
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
